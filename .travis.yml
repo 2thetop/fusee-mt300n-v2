@@ -14,8 +14,12 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script:
+install:
+  # Output something every 1 minute or Travis kills the job after 10 minutes
+  - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
   - docker-compose up --build
+  # Killing background sleep loop
+  - kill %1
   
 before_deploy:
   - git config --local user.name ${TRAVIS_GIT_USER}
