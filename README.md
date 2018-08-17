@@ -1,8 +1,8 @@
 # fusee-mt300n-v2
 [![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2) [![Project Status](https://img.shields.io/badge/status-wip-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)
-Files for building a custom LEDE image with [fusee-nano](https://github.com/DavidBuchanan314/fusee-nano) for GL.iNet's GL-MT300N-v2. 
+Files for building a custom LEDE image with [fusee-nano](https://github.com/DavidBuchanan314/fusee-nano) for GL.iNet's GL-MT300N-V2. 
 
-## System Requirement
+## System Requirements
 1. Any linux distribution
 2. Docker
 3. Docker-Compose (optional)
@@ -37,3 +37,16 @@ docker run -v $(pwd)/bin:/build/imagebuilder/bin fusee/gl-mt300n-v2 image PROFIL
 Once installed, just plug in your switch in RCM mode, and the payload will get launched automagically!
 
 To set a custom payload, replace `/usr/share/fusee-nano/payload.bin`. (`fusee.bin` is bundled as a default payload, from https://github.com/ktemkin/Atmosphere/tree/poc_nvidia/fusee)
+
+## Resources
+- [GL-MT300N-V2 Imagebuilder](https://github.com/gl-inet/imagebuilder-lede-ramips)
+- [GL-MT300N-V2 Imagebuilder OpenWRT Files](https://github.com/gl-inet/openwrt-files.git)
+- [fusee-lede](https://github.com/DavidBuchanan314/fusee-lede.git)
+- [Fusée Gelée](http://memecpy.com/)
+- [LEDE 17.01](https://git.openwrt.org/?p=openwrt/openwrt.git;a=shortlog;h=refs/heads/lede-17.01)
+
+## Disclaimer
+This repository was created solely for experimental purposes. I'm not reliable for any damage to your GL.iNet device or your Nintendo Switch! Use at your own risk!
+
+## Credits
+Credit goes to all the awesome people that make this stuff possible.
