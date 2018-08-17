@@ -16,8 +16,7 @@ COPY .config /build/lede
 
 WORKDIR /build/lede
 
-RUN chown build:build .config && \
-    ./scripts/feeds update -a && \
+RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 	
 RUN make tools/install V=s && make toolchain/install V=s
