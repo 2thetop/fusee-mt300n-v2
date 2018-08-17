@@ -29,8 +29,8 @@ RUN ./scripts/feeds update -a && \
 
 RUN make tools/install && make toolchain/install
 
-RUN make package/fusee-nano/compile && \
-    make package/fusee-nano/install && \
+RUN make package/fusee-nano/compile V=w && \
+    make package/fusee-nano/install V=w && \
     cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
 
 # gl-mt300n-v2 imagebuilder image
