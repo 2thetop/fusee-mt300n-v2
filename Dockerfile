@@ -9,8 +9,8 @@ WORKDIR /build
 RUN git clone https://github.com/DavidBuchanan314/fusee-lede.git && \
     git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
     git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
-	git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files && \
-	cp -r fusee-lede/fusee-nano lede/package/utils/
+    git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files && \
+    cp -r fusee-lede/fusee-nano lede/package/utils/
 
 COPY .config /build/lede
 
@@ -18,14 +18,14 @@ WORKDIR /build/lede
 
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
-	
+
 RUN make tools/install V=s && make toolchain/install V=s
 
 RUN make package/fusee-nano/compile && \
     make package/fusee-nano/install && \
-	cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
+    cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
 
-WORKDIR /build/imagebuilder	
+WORKDIR /build/imagebuilder
 
 VOLUME /build/imagebuilder/bin
 
