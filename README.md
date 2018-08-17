@@ -1,5 +1,6 @@
 # fusee-mt300n-v2
-[![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2) [![Project Status](https://img.shields.io/badge/status-wip-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)
+[![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2) [![Project Status](https://img.shields.io/badge/status-wip-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)  
+  
 Files for building a custom LEDE image with [fusee-nano](https://github.com/DavidBuchanan314/fusee-nano) for GL.iNet's GL-MT300N-v2. 
 
 ## System Requirement
