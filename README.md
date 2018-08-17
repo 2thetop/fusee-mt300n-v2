@@ -1,5 +1,5 @@
 # fusee-mt300n-v2
-Files for building a custom LEDE image for GL.iNet's GL-MT300N-v2.
+Files for building a custom LEDE image for GL.iNet's GL-MT300N-v2. [![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2)
 
 ## System Requirement
 1. Any linux distribution
