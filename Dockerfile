@@ -19,7 +19,7 @@ WORKDIR /build/lede
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-RUN make tools/install V=s && make toolchain/install V=s
+RUN make tools/install && make toolchain/install
 
 RUN make package/fusee-nano/compile && \
     make package/fusee-nano/install && \
