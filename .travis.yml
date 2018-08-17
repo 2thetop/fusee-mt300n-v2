@@ -10,7 +10,7 @@ before_script:
   - docker run --rm -v "$(pwd)/Dockerfile:/Dockerfile:ro" redcoolbeans/dockerlint:0.2.0
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
+  - DOCKER_COMPOSE_VERSION=1.22.0
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -23,15 +23,14 @@ script:
   
 before_deploy:
       # Set up git user name and tag this commit
-      - git config --local user.name "YOUR GIT USER NAME"
-      - git config --local user.email "YOUR GIT USER EMAIL"
+      - git config --local user.name ${TRAVIS_GIT_USER}
+      - git config --local user.email ${TRAVIS_GIT_EMAIL}
       - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
+  api_key: ${TRAVIS_GIT_TOKEN}
   file_glob: true
   file: bin/targets/ramips/mt7628/*
+  overwrite: true
   skip_cleanup: true
-  on:
-    tags: true
