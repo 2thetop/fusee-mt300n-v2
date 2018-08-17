@@ -4,10 +4,6 @@ language: generic
 
 services:
   - docker
-  
-before_script:
-  - echo "Validating Dockerfile..."
-  - docker run --rm -v "$(pwd)/Dockerfile:/Dockerfile:ro" redcoolbeans/dockerlint:0.2.0
 
 env:
   - DOCKER_COMPOSE_VERSION=1.22.0
@@ -22,10 +18,9 @@ script:
   - docker-compose up --build
   
 before_deploy:
-      # Set up git user name and tag this commit
-      - git config --local user.name ${TRAVIS_GIT_USER}
-      - git config --local user.email ${TRAVIS_GIT_EMAIL}
-      - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - git config --local user.name ${TRAVIS_GIT_USER}
+  - git config --local user.email ${TRAVIS_GIT_EMAIL}
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 
 deploy:
   provider: releases
