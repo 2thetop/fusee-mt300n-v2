@@ -24,6 +24,12 @@ via Docker Compose:
 ````
 docker-compose up --build
 ````
+building an image with custom packages:
+````
+docker build -t fusee/gl-mt300n-v2 .
+# building the firmware with tor (if you want to use the router for more purposes than as a payload injector)
+docker run -v $(pwd)/bin:/build/imagebuilder/bin fusee/gl-mt300n-v2 image PROFILE="gl-mt300n-v2" PACKAGES="kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano uhttpd ethtool blkid iwinfo block-mount curl gnupg iw jshn kmod-fs-ext4 kmod-fs-ntfs kmod-fs-vfat kmod-fs-ext4 ntfs-3g kmod-fs-hfs kmod-fs-hfsplus kmod-fs-reiserfs kmod-fuse kmod-loop kmod-gpio-button-hotplug kmod-leds-gpio kmod-ledtrig-default-on kmod-ledtrig-netdev kmod-ledtrig-timer kmod-lib-crc-ccitt kmod-lib-crc16 kmod-nls-cp437 kmod-nls-iso8859-1 kmod-nls-utf8 kmod-usb-storage kmod-usb-uhci kmod-usb2 kmod-usb-ohci kmod-usb-net kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-serial kmod-usb-serial-cp210x kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-acm usb-modeswitch comgt chat luci luci-lib-json luci-lib-nixio uhttpd-mod-lua uhttpd-mod-ubus usbutils wget tor tor-geoip tor-resolve tor-gencert" FILES=files/files-tor-mt7628/
+````
 
 3. Flash the image from `./bin/targets/ramips/mt7628/` to your GL-MT300N-v2
 

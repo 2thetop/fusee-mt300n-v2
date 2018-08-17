@@ -1,6 +1,14 @@
-FROM ubuntu:16.04
+# fusee-nano builder image
+FROM ubuntu:16.04 as build
 
-RUN apt-get update && apt-get install build-essential subversion mercurial libncurses5-dev zlib1g-dev gawk gcc-multilib flex git-core gettext libssl-dev unzip wget python file sudo -y && mkdir -p /build && useradd -ms /bin/bash build && chown build:build /build
+LABEL maintainer="shawly <shawlyde@gmail.com>"
+
+RUN apt-get update && \
+    apt-get install build-essential subversion mercurial libncurses5-dev zlib1g-dev gawk gcc-multilib flex git-core gettext libssl-dev unzip wget python file sudo -y && \
+	rm -rf /var/lib/apt/lists/* && \
+	mkdir -p /build && \
+	useradd -ms /bin/bash build && \
+	chown build:build /build
 
 USER build
 
@@ -24,6 +32,17 @@ RUN make tools/install && make toolchain/install
 RUN make package/fusee-nano/compile && \
     make package/fusee-nano/install && \
     cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
+
+# gl-mt300n-v2 imagebuilder image
+FROM ubuntu:16.04
+
+USER build
+
+COPY --from=build /build/imagebuilder /build/imagebuilder
+
+RUN apt-get update && \
+    apt-get install subversion build-essential git-core libncurses5-dev zlib1g-dev gawk flex quilt libssl-dev xsltproc libxml-parser-perl mercurial bzr ecj cvs unzip git wget -y && \
+	rm -rf /var/lib/apt/lists/* && \
 
 WORKDIR /build/imagebuilder
 
