@@ -1,0 +1,7 @@
+version: '3'
+services:
+  fusee-nano-builder:
+    build: .
+    image: fusee/gl-mt300n-v2
+    volumes:
+      - ./bin:/build/imagebuilder/bin
