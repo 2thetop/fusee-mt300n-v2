@@ -5,10 +5,11 @@ LABEL maintainer="shawly <shawlyde@gmail.com>"
 
 RUN apt-get update && \
     apt-get install build-essential subversion mercurial libncurses5-dev zlib1g-dev gawk gcc-multilib flex git-core gettext libssl-dev unzip wget python file sudo -y && \
-	rm -rf /var/lib/apt/lists/* && \
-	mkdir -p /build && \
-	useradd -ms /bin/bash build && \
-	chown build:build /build
+        rm -rf /var/lib/apt/lists/* && \
+        mkdir -p /build && \
+        useradd -ms /bin/bash build && \
+        usermod -a -G sudo build && \
+        chown -R build:build /build
 
 USER build
 
@@ -36,18 +37,20 @@ RUN make package/fusee-nano/compile V=w && \
 # gl-mt300n-v2 imagebuilder image
 FROM ubuntu:16.04
 
-USER build
-
 COPY --from=build /build/imagebuilder /build/imagebuilder
 
 RUN apt-get update && \
     apt-get install subversion build-essential git-core libncurses5-dev zlib1g-dev gawk flex quilt libssl-dev xsltproc libxml-parser-perl mercurial bzr ecj cvs unzip git wget -y && \
-	rm -rf /var/lib/apt/lists/* && \
+        rm -rf /var/lib/apt/lists/* && \
+        mkdir -p /build/imagebuilder/bin && \
+        useradd -ms /bin/bash build && \
+        usermod -a -G sudo build && \
+        chown -R build:build /build
+
+USER build
 
 WORKDIR /build/imagebuilder
 
 VOLUME /build/imagebuilder/bin
 
-ENTRYPOINT make
-
-CMD image PROFILE=gl-mt300n-v2 PACKAGES="kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano" FILES=files/files-clean-mt7628/
+CMD make image PROFILE=gl-mt300n-v2 PACKAGES="kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano" FILES=files/files-clean-mt7628/
