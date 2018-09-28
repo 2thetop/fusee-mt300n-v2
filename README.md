@@ -1,5 +1,5 @@
 # fusee-mt300n-v2
-[![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2) [![Project Status](https://img.shields.io/badge/status-wip-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)
+[![Build Status](https://travis-ci.org/shawly/fusee-mt300n-v2.svg?branch=master)](https://travis-ci.org/shawly/fusee-mt300n-v2) [![Project Status](https://img.shields.io/badge/status-testing-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)
 Files for building a custom LEDE image with [fusee-nano](https://github.com/DavidBuchanan314/fusee-nano) for GL.iNet's GL-MT300N-V2. The releases are created automatically via Travis-CI, if you have trust issues or want to add more packages, I recommend building it yourself.
 
 ## System Requirements
@@ -42,7 +42,7 @@ To set a custom payload, replace `/usr/share/fusee-nano/payload.bin`. (`fusee.bi
 - [GL-MT300N-V2 Imagebuilder](https://github.com/gl-inet/imagebuilder-lede-ramips)
 - [GL-MT300N-V2 Imagebuilder OpenWRT Files](https://github.com/gl-inet/openwrt-files.git)
 - [fusee-lede](https://github.com/DavidBuchanan314/fusee-lede.git)
-- [Fusée Gelée](http://memecpy.com/)
+- [FusÃ©e GelÃ©e](http://memecpy.com/)
 - [LEDE 17.01](https://git.openwrt.org/?p=openwrt/openwrt.git;a=shortlog;h=refs/heads/lede-17.01)
 
 ## Disclaimer
