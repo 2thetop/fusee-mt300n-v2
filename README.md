@@ -1,5 +1,5 @@
 # fusee-mt300n-v2
-[![Project Status](https://img.shields.io/badge/status-not_working-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)
+[![Project Status](https://img.shields.io/badge/status-not_working-f39f37.svg)](https://github.com/shawly/fusee-mt300n-v2/releases) [![GitHub Release](https://img.shields.io/github/release/shawly/fusee-mt300n-v2.svg)](https://github.com/shawly/fusee-mt300n-v2/releases/latest)  
 Files for building a custom LEDE image with [fusee-nano](https://github.com/DavidBuchanan314/fusee-nano) for GL.iNet's GL-MT300N-V2. The releases are created automatically via Travis-CI, if you have trust issues or want to add more packages, I recommend building it yourself.
 
 ## System Requirements
