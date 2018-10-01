@@ -1,0 +1,6 @@
+version: 2
+jobs:
+  build:
+    steps:
+      - checkout
+      - run: docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
