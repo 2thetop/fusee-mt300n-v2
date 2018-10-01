@@ -4,4 +4,21 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
+      - run: | 
+          docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
+          mkdir -p $(pwd)/artifacts
+          chown 1000:1000 $(pwd)/artifacts
+          docker run --rm -v $(pwd)/artifacts:/build/imagebuilder/bin shawly/fusee-mt300n-v2:$CIRCLE_BRANCH
+
+  publish-github-release:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            VERSION=0.4_gl
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
