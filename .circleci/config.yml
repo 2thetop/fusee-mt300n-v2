@@ -5,7 +5,9 @@ jobs:
     steps:
       - checkout
       - run: | 
+          while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
           docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
+          kill %1
           mkdir -p $(pwd)/artifacts
           chown 1000:1000 $(pwd)/artifacts
           docker run --rm -v $(pwd)/artifacts:/build/imagebuilder/bin shawly/fusee-mt300n-v2:$CIRCLE_BRANCH
