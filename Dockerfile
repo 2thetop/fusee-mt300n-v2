@@ -8,28 +8,28 @@ RUN apt-get update && \
         rm -rf /var/lib/apt/lists/* && \
         mkdir -p /build && \
         useradd -ms /bin/bash build && \
-        usermod -a -G sudo build && \
-        chown -R build:build /build
-
-USER build
+        usermod -a -G sudo build
 
 WORKDIR /build
 
 RUN git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
     git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
-    git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files
+    git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files && \
+    chown -R build:build /build
+
+COPY .config /build/lede
 
 ENV VERSION 0.4_mod
 
 ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
 
-RUN chown -R build:build /build && \
-    tar -xzvf /build/${VERSION}.tar.gz && \
+RUN tar -xzvf /build/${VERSION}.tar.gz && \
     cp -r /build/fusee-lede-${VERSION}/fusee-nano /build/lede/package/utils/ && \
     mkdir -p /build/lede/target/linux/generic/patches-4.4/ && \
-    cp /build/fusee-lede-${VERSION}/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/
-    
-COPY .config /build/lede
+    cp /build/fusee-lede-${VERSION}/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/ && \
+    chown -R build:build /build
+
+USER build
 
 WORKDIR /build/lede
 
