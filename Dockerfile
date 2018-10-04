@@ -64,8 +64,8 @@ WORKDIR /build/lede
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-RUN make package/fusee-nano/compile V=w && \
-    make package/fusee-nano/install V=w && \
+RUN make package/fusee-nano/compile V=s && \
+    make package/fusee-nano/install V=s && \
     cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
 
 # gl-mt300n-v2 imagebuilder image
