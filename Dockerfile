@@ -21,11 +21,11 @@ RUN git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
 
 ENV VERSION 0.4_mod
 
-ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build/fusee-lede
+ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
 
-RUN cp -r /build/fusee-lede/fusee-nano lede/package/utils/ && \
+RUN cp -r /build/fusee-lede-${VERSION}/fusee-nano /build/lede/package/utils/ && \
     mkdir -p /build/lede/target/linux/generic/patches-4.4/ && \
-    cp /build/fusee-lede/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/ && \
+    cp /build/fusee-lede-${VERSION}/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/
     
 COPY .config /build/lede
 
