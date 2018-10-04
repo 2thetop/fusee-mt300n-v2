@@ -15,7 +15,7 @@ USER build
 
 WORKDIR /build
 
-RUN git clone https://github.com/DavidBuchanan314/fusee-lede.git && \
+RUN git clone https://github.com/shawly/fusee-lede.git && \
     git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
     git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
     git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files && \
