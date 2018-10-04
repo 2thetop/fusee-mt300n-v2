@@ -15,12 +15,18 @@ USER build
 
 WORKDIR /build
 
-RUN git clone https://github.com/shawly/fusee-lede.git && \
-    git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
+RUN git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
     git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
-    git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files && \
-    cp -r fusee-lede/fusee-nano lede/package/utils/
+    git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files
 
+ENV VERSION 0.4_mod
+
+ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build/fusee-lede
+
+RUN cp -r /build/fusee-lede/fusee-nano lede/package/utils/ && \
+    mkdir -p /build/lede/target/linux/generic/patches-4.4/ && \
+    cp /build/fusee-lede/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/ && \
+    
 COPY .config /build/lede
 
 WORKDIR /build/lede
@@ -53,4 +59,6 @@ WORKDIR /build/imagebuilder
 
 VOLUME /build/imagebuilder/bin
 
-CMD make image PROFILE=gl-mt300n-v2 PACKAGES="kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano" FILES=files/files-clean-mt7628/
+ENV LEDE_PACKAGES "kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano"
+
+CMD make image PROFILE=gl-mt300n-v2 PACKAGES="${LEDE_PACKAGES}" FILES=files/files-clean-mt7628/
