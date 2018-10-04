@@ -31,22 +31,12 @@ RUN ./scripts/feeds update -a && \
     make tools/install && make toolchain/install
 
 # fusee-nano builder
-FROM ubuntu:16.04 as fusee-nano-build
-
 # if there are any updates for the image builder, adjust this var to bust the cache
 ENV IMAGEBUILDER_CACHE_BUST 2018-04-16
 
-# install deps and add build user
-RUN apt-get update && \
-    apt-get install build-essential subversion mercurial libncurses5-dev zlib1g-dev gawk gcc-multilib flex git-core gettext libssl-dev unzip wget python file sudo -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd -ms /bin/bash build && \
-    usermod -a -G sudo build  && \
-    git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
+# clone imagebuilder
+RUN git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
     git clone https://github.com/gl-inet/openwrt-files.git imagebuilder/files
-
-# use compiled toolchain and sources from base-build
-COPY --from=base-build /build /build
 
 # version for busting the cache on updates
 ENV VERSION 0.4_mod
@@ -54,6 +44,9 @@ ENV VERSION 0.4_mod
 ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
 
 WORKDIR /build
+
+# change back to root for extraction and changing of ownerships
+USER root
 
 # add fusee-nano sources and own necessary folders
 RUN tar -xzvf /build/${VERSION}.tar.gz && \
@@ -63,7 +56,7 @@ RUN tar -xzvf /build/${VERSION}.tar.gz && \
     cp /build/fusee-lede-${VERSION}/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/ && \
     chown -R build:build /build/lede/target/linux/generic/patches-4.4
 
-# execute everything as build user
+# execute everything as build user again
 USER build
 
 WORKDIR /build/lede
@@ -78,7 +71,7 @@ RUN make package/fusee-nano/compile V=w && \
 # gl-mt300n-v2 imagebuilder image
 FROM ubuntu:16.04
 
-COPY --from=fusee-nano-build /build/imagebuilder /build/imagebuilder
+COPY --from=base-build /build/imagebuilder /build/imagebuilder
 
 RUN apt-get update && \
     apt-get install subversion build-essential git-core libncurses5-dev zlib1g-dev gawk flex quilt libssl-dev xsltproc libxml-parser-perl mercurial bzr ecj cvs unzip git wget -y && \
