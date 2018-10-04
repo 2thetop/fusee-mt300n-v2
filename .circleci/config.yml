@@ -9,7 +9,8 @@ jobs:
           docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
           kill %1
           mkdir -p $(pwd)/artifacts
-          docker run --rm -v $(pwd)/artifacts:/build/imagebuilder/bin shawly/fusee-mt300n-v2:$CIRCLE_BRANCH
+          docker run --rm --name build -v $(pwd)/artifacts:/build/imagebuilder/bin shawly/fusee-mt300n-v2:$CIRCLE_BRANCH
+          docker cp build:/build/imagebuilder/bin/targets/ramips/mt7628/ $(pwd)/artifacts
 
   publish-github-release:
     docker:
