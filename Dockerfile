@@ -12,6 +12,8 @@ RUN apt-get update && \
     usermod -a -G sudo build && \
     chown -R build:build /build
 
+COPY .config /build/lede
+
 # execute every thing as build user
 USER build
 
@@ -48,8 +50,6 @@ COPY --from=base-build /build /build
 
 # version for busting the cache on updates
 ENV VERSION 0.4_mod
-
-COPY .config /build/lede
 
 ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
 
