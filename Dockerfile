@@ -23,7 +23,8 @@ ENV VERSION 0.4_mod
 
 ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
 
-RUN cp -r /build/fusee-lede-${VERSION}/fusee-nano /build/lede/package/utils/ && \
+RUN echo Contents of /build: $(ls /build) && \
+    cp -r /build/fusee-lede-${VERSION}/fusee-nano /build/lede/package/utils/ && \
     mkdir -p /build/lede/target/linux/generic/patches-4.4/ && \
     cp /build/fusee-lede-${VERSION}/899-ehci_enable_large_ctl_xfers.patch /build/lede/target/linux/generic/patches-4.4/
     
