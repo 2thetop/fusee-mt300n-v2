@@ -21,7 +21,7 @@ RUN git clone -b lede-17.01 https://git.openwrt.org/source.git lede && \
 
 ENV VERSION 0.4_mod
 
-ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
+ADD https://github.com/shawly/fusee-lede/archive/fusee-lede-${VERSION}.tar.gz /build
 
 RUN echo Contents of /build: $(ls /build) && \
     cp -r /build/fusee-lede-${VERSION}/fusee-nano /build/lede/package/utils/ && \
