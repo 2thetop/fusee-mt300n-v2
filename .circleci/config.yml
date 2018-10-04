@@ -2,11 +2,10 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: ubuntu:16.04
+      machine:
+        docker_layer_caching: true
     steps:
       - checkout
-      - setup_remote_docker: 
-         docker_layer_caching: true 
       - run: | 
           while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
           docker build -t shawly/fusee-mt300n-v2:$CIRCLE_BRANCH .
