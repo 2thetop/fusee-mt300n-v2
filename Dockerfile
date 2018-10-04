@@ -12,8 +12,6 @@ RUN apt-get update && \
     usermod -a -G sudo build && \
     chown -R build:build /build
 
-COPY .config /build/lede
-
 # execute every thing as build user
 USER build
 
@@ -23,6 +21,8 @@ WORKDIR /build
 ENV LEDE_VERSION 17.01.06
 
 RUN git clone -b lede-17.01 https://git.openwrt.org/source.git lede
+
+COPY .config /build/lede
 
 WORKDIR /build/lede
 
