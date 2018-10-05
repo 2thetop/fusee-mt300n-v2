@@ -66,7 +66,7 @@ RUN ./scripts/feeds update -a && \
 
 RUN make package/fusee-nano/compile V=s && \
     make package/fusee-nano/install V=s && \
-    echo Contents $(ls -a bin/packages/mipsel_24kc*) && \
+    echo Contents $(ls -a bin/packages/*) && \
     cp bin/packages/mipsel_24kc/base/fusee-nano*.ipk ../imagebuilder/packages
 
 # gl-mt300n-v2 imagebuilder image
