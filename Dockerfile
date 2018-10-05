@@ -80,17 +80,18 @@ RUN apt-get update && \
         rm -rf /var/lib/apt/lists/* && \
         mkdir -p /build/imagebuilder/bin && \
         useradd -ms /bin/bash build && \
-        usermod -a -G sudo build && \
-        chown -R build:build /build
-
-USER build
+        usermod -a -G sudo build
 
 WORKDIR /build/imagebuilder
 
 # final image should be placed into a volume for persistence
 VOLUME /build/imagebuilder/bin
 
+RUN chown -R build:build /build
+
 # installed packages for the lede image (should always contain fusee-nano)
 ENV LEDE_PACKAGES "kmod-mt7628 uci2dat mtk-iwinfo luci fusee-nano"
+
+USER build
 
 CMD make image PROFILE=gl-mt300n-v2 PACKAGES="${LEDE_PACKAGES}" FILES=files/files-clean-mt7628/
