@@ -26,13 +26,16 @@ COPY .config /build/lede
 
 WORKDIR /build/lede
 
-RUN ./scripts/feeds update -a && \
-    ./scripts/feeds install -a && \
-    make tools/install && make toolchain/install
+RUN ./scripts/feeds update -a
+RUN ./scripts/feeds install -a
+RUN make tools/install V=w 
+RUN make toolchain/install V=w
 
 # fusee-nano builder
 # if there are any updates for the image builder, adjust this var to bust the cache
 ENV IMAGEBUILDER_CACHE_BUST 2018-04-16
+
+WORKDIR /build
 
 # clone imagebuilder
 RUN git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder && \
@@ -42,8 +45,6 @@ RUN git clone https://github.com/gl-inet/imagebuilder-lede-ramips imagebuilder &
 ENV VERSION 0.4_mod
 
 ADD https://github.com/shawly/fusee-lede/archive/${VERSION}.tar.gz /build
-
-WORKDIR /build
 
 # change back to root for extraction and changing of ownerships
 USER root
@@ -61,8 +62,8 @@ USER build
 
 WORKDIR /build/lede
 
-RUN ./scripts/feeds update -a && \
-    ./scripts/feeds install -a
+RUN ./scripts/feeds update -a
+RUN ./scripts/feeds install -a
 
 RUN make package/fusee-nano/compile V=s && \
     make package/fusee-nano/install V=s && \
